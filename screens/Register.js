@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Alert, FlatList } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
+import { ref, set, onValue, remove } from "firebase/database";
 import { initializeApp } from 'firebase/app';
 import { db, firebaseConfig } from '../components/Config';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Register({navigation}) {
 
@@ -16,9 +16,9 @@ export default function Register({navigation}) {
 
     function record () {
 
-        const app = initializeApp(firebaseConfig)
-
+        const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+
         createUserWithEmailAndPassword(auth, mail, pass)
         .then((userCredential) => {
             const user = userCredential.user;
@@ -53,6 +53,7 @@ export default function Register({navigation}) {
         const startCountRef = ref(db, 'players/');
         onValue(startCountRef, (snapshot)=> {
             const data = snapshot.val();
+            setDatos(data)
             const dataArray = Object.entries(data).map(([key, value])=>({
                 key, ...value,
             }));
@@ -76,37 +77,37 @@ export default function Register({navigation}) {
             style={styles.imageBackground}
         >
             <View style={styles.container}>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder='Ingrese un correo'
-                        keyboardType='email-address'
-                        onChangeText={(text) => setMail(text)}
-                        value={mail}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder='Ingrese un Nickname'
-                        onChangeText={(text) => setNick(text)}
-                        value={nick}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder='Ingrese su Edad'
-                        onChangeText={(text) => setAge(text)}
-                        keyboardType='numeric'
-                        value={age}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        placeholder='Ingrese su contraseña'
-                        onChangeText={(text) => setPass(text)}
-                        secureTextEntry={true}
-                        value={pass}
-                    />
-                </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            placeholder='Ingrese un correo'
+                            keyboardType='email-address'
+                            onChangeText={(text) => setMail(text)}
+                            value={mail}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            placeholder='Ingrese un Nickname'
+                            onChangeText={(text) => setNick(text)}
+                            value={nick}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            placeholder='Ingrese su Edad'
+                            onChangeText={(text) => setAge(text)}
+                            keyboardType='numeric'
+                            value={age}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            placeholder='Ingrese su contraseña'
+                            onChangeText={(text) => setPass(text)}
+                            secureTextEntry={true}
+                            value={pass}
+                        />
+                    </View>
                 <Text>{'\n'}</Text>
                 <View style={styles.rowBtn}>
                     <TouchableOpacity style={styles.button}
