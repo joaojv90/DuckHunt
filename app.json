@@ -4,7 +4,7 @@
     "slug": "DuckHunt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/title.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -12,8 +12,11 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "./assets/pixel.ttf"
     ],
+    "fonts":[{
+      "asset":"./assets/pixel.ttf"
+    }],
     "ios": {
       "supportsTablet": true
     },

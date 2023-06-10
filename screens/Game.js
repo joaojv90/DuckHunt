@@ -12,6 +12,27 @@ export default function Game({navigation}) {
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
     const [screenHeight, setScreenHeight] = useState(Dimensions.get('window').height);
 
+    //cuanta regresiva
+    const seconds = 30;
+
+    const [time, setTime] = useState(seconds);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(prevTime => prevTime - 1);
+            }, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [])
+
+    useEffect(() => {
+        if (time === 0) {
+            setTime(seconds);
+            navigation.navigate('Game Over')
+        }
+    }, [time]);
+
     useEffect(() => {
         const updateScreenDimensions = () => {
         setScreenWidth(Dimensions.get('window').width);
@@ -53,7 +74,9 @@ export default function Game({navigation}) {
     >
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.score}>Su puntaje es: {score}</Text>
+                <Text style={styles.score}>Score: {score}</Text>
+                <Text>{'                       '}</Text>
+                <Text style={styles.score}>00:{time}</Text>
                 <View style={styles.buttonContainer}>
                     <Button 
                     title='Logout'
