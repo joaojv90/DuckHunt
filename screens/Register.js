@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, TextInput, Alert, Image } from 'react-native'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set, onValue, remove } from "firebase/database";
 import { initializeApp } from 'firebase/app';
@@ -77,6 +77,9 @@ export default function Register({navigation}) {
             style={styles.imageBackground}
         >
             <View style={styles.container}>
+                <Image source={require('../assets/title.png')}
+                    style={styles.img}/>
+                    <Text>{'\n'}</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
                             placeholder='Ingrese un correo'
@@ -159,8 +162,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 8,
         marginVertical: 10,
+        width:'90%',
+        height:45,
+        borderWidth: 1,
     },
     rowBtn:{
         flexDirection:'row',
-    }
+    },
+    img:{
+        width:'100%',
+        height:'8%',
+    },
 })

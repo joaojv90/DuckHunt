@@ -71,7 +71,7 @@ export default function Game({navigation}) {
         <ImageBackground
         source={require('../assets/Stage02.png')}
         style={styles.imageBackground}
-    >
+        >
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.score}>Score: {score}</Text>
@@ -85,24 +85,24 @@ export default function Game({navigation}) {
                     />
                 </View>
             </View>
-        <View style={styles.gameContainer}>
-            <TouchableOpacity 
-                style={[styles.duckContainer, { top: duckPosition.y, left: duckPosition.x }]}
-                onPress={handleImagePress}
-            >
-            {isDuckPressed ? (
+            <View style={styles.gameContainer}>
+                <TouchableOpacity 
+                    style={[styles.duckContainer, { top: duckPosition.y, left: duckPosition.x }]}
+                    onPress={handleImagePress}
+                >
+                {isDuckPressed ? (
+                    <Image 
+                    source={require('../assets/duck_clicked.png')} 
+                    style={[styles.image, { width: 50, height: 50 }]}
+                />) : (
                 <Image 
-                source={require('../assets/duck_clicked.png')} 
-                style={[styles.image, { width: 50, height: 50 }]}
-            />) : (
-            <Image 
-                source={require('../assets/duck.png')} 
-                style={[styles.image, { width: 50, height: 50 }]}
-            />
-            )}
-            </TouchableOpacity>
+                    source={require('../assets/duck.png')} 
+                    style={[styles.image, { width: 50, height: 50 }]}
+                />
+                )}
+                </TouchableOpacity>
+            </View>
         </View>
-    </View>
     </ImageBackground>
 );
 }

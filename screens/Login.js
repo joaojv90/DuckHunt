@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, StatusBar, TextInput, TouchableOpacity, Alert, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, TextInput, TouchableOpacity, Alert, ImageBackground, Image } from 'react-native'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from 'react'
 import { initializeApp } from 'firebase/app';
@@ -47,6 +47,9 @@ export default function Login({navigation}) {
             >
             <View style={styles.container}>
                 <StatusBar style="auto" />
+                <Image source={require('../assets/title.png')}
+                style={styles.img}/>
+                <Text>{'\n'}</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='Ingrese su correo'
@@ -55,7 +58,6 @@ export default function Login({navigation}) {
                         value={mail} //colocando este valor se sincronizan los cambios
                     />
                 </View>
-
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='Ingrese su contraseña'
@@ -66,12 +68,12 @@ export default function Login({navigation}) {
                     />
                 </View>
                 <Text>{'\n'}</Text>
-                <View style={styles.rowBtn}>
+                <View>
                     <TouchableOpacity style={styles.button}
                         onPress={() => login()}>
                         <Text style={styles.buttonText}>LOGIN</Text>
                     </TouchableOpacity>
-                    <Text>{' '}</Text>
+                    <Text>{'\n'}</Text>
                     <TouchableOpacity style={styles.button}
                         onPress={() => navigation.navigate('Registro')}>
                         <Text style={styles.buttonText}>REGISTRARSE</Text>
@@ -111,8 +113,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 8,
         marginVertical: 10,
+        width:'90%',
+        height:45,
+        borderWidth: 1,
     },
-    rowBtn:{
-        flexDirection:'row',
-    }
+    img:{
+        width:'100%',
+        height:'8%',
+    },
 });
