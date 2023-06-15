@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/Config';
 import { getAuth, signOut } from "firebase/auth";
 import React from 'react'
+import { useFonts } from 'expo-font';
 
 export default function GameOver({navigation}) {
 
@@ -13,6 +14,15 @@ export default function GameOver({navigation}) {
             navigation.navigate('Login')
         }).catch((error) => {
         });
+    }
+
+    //Importar fonts
+    const [fontsLoaded] = useFonts({
+        'pixel': require('../assets/fonts/pixel.ttf'),
+    });
+
+    if(!fontsLoaded){
+        return null;
     }
 
     return (
@@ -31,8 +41,8 @@ export default function GameOver({navigation}) {
                 </View>
                 <Text>{'\n'}</Text>
                 <View>
-                    <Text>Su puntaje es:</Text>
-                    <Text></Text>
+                    <Text style={styles.txtScore}>Su puntaje es:</Text>
+                    <Text style={styles.txtScore}></Text>
                 </View>
                 <TouchableOpacity style={styles.button}
                     onPress={()=>out()}
@@ -57,11 +67,17 @@ const styles = StyleSheet.create({
     },
     txt:{
         fontSize: 50,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontFamily:'pixel',
+    },
+    txtScore:{
+        fontSize: 20,
+        fontWeight:'bold',
+        fontFamily:'pixel',
     },
     img:{
         width:'100%',
-        height:'10%'
+        height:'8%'
     },
     button: {
         backgroundColor: '#BA4A00',
@@ -74,5 +90,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+        fontFamily:'pixel',
     },
 })

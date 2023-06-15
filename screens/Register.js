@@ -3,7 +3,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set, onValue, remove } from "firebase/database";
 import { initializeApp } from 'firebase/app';
 import { db, firebaseConfig } from '../components/Config';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useFonts } from 'expo-font';
 
 export default function Register({navigation}) {
 
@@ -45,7 +46,7 @@ export default function Register({navigation}) {
         set(ref(db, 'players/' + nick), {
             email: mail,
             nickName: nick,
-            age: age
+            age: age,
         });
     }
 
@@ -69,6 +70,15 @@ export default function Register({navigation}) {
         setMail("")
         setPass("")
         setNick("")
+    }
+
+    //Importar fonts
+    const [fontsLoaded] = useFonts({
+        'pixel': require('../assets/fonts/pixel.ttf'),
+    });
+
+    if(!fontsLoaded){
+        return null;
     }
 
     return (
@@ -117,16 +127,6 @@ export default function Register({navigation}) {
                         onPress={() => record()}>
                         <Text style={styles.buttonText}>REGISTRAR</Text>
                     </TouchableOpacity>
-                    <Text>{' '}</Text>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => readData()}>
-                        <Text style={styles.buttonText}>ACTUALIZAR</Text>
-                    </TouchableOpacity>
-                    <Text>{' '}</Text>
-                    <TouchableOpacity style={styles.button}
-                        onPress={() => del(nick)}>
-                        <Text style={styles.buttonText}>ELIMINAR</Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         </ImageBackground>
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 15,
+        fontFamily:'pixel',
     },
     inputContainer: {
         backgroundColor: 'lightgray',

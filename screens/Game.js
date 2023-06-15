@@ -3,9 +3,11 @@ import { getAuth, signOut } from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/Config';
 import React, { useState, useEffect } from 'react'
+import { useFonts } from 'expo-font';
 
 export default function Game({navigation}) {
 
+    const [squashedDucks, setSquashedDucks] = useState(0)
     const [score, setScore] = useState(0);
     const [duckPosition, setDuckPosition] = useState({ x: 0, y: 0 });
     const [isDuckPressed, setIsDuckPressed] = useState(false);
@@ -47,9 +49,10 @@ export default function Game({navigation}) {
         }, []);
     
     function handleImagePress () {
-        setScore(score + 10);
+        setScore(score + 5);
+        setSquashedDucks(squashedDucks+1);
         setDuckPosition({
-          x: Math.random() * (screenWidth - 200),
+          x: Math.random() * (screenWidth - 100),
           y: Math.random() * (screenHeight - 200),
         });
         setIsDuckPressed(true);
@@ -67,6 +70,15 @@ export default function Game({navigation}) {
         });
     }
 
+    //Importar fonts
+    const [fontsLoaded] = useFonts({
+        'pixel': require('../assets/fonts/pixel.ttf'),
+    });
+
+    if(!fontsLoaded){
+        return null;
+    }
+
     return (
         <ImageBackground
         source={require('../assets/Stage02.png')}
@@ -75,7 +87,7 @@ export default function Game({navigation}) {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.score}>Score: {score}</Text>
-                <Text>{'                       '}</Text>
+                <Text>{'                   '}</Text>
                 <Text style={styles.score}>00:{time}</Text>
                 <View style={styles.buttonContainer}>
                     <Button 
@@ -84,6 +96,11 @@ export default function Game({navigation}) {
                     onPress={() => out()}
                     />
                 </View>
+            </View>
+            <View style={styles.headerCrashed}>
+                <Image source={require('../assets/duck_hunt_logo.png')}
+                style={styles.imgCrashed}/>
+                <Text style={styles.txtCrashed}>{squashedDucks}</Text>
             </View>
             <View style={styles.gameContainer}>
                 <TouchableOpacity 
@@ -128,8 +145,8 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     score: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 15,
+        fontFamily:'pixel',
         color: 'white',
     },
     buttonContainer: {
@@ -139,5 +156,18 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: '100%',
         height: Dimensions
+    },
+    imgCrashed:{
+        width: 20,
+        height: 20,
+    },
+    txtCrashed:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white',
+        fontFamily:'pixel',
+    },
+    headerCrashed:{
+        flexDirection: 'row',
     },
 });

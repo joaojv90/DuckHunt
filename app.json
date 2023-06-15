@@ -4,7 +4,7 @@
     "slug": "DuckHunt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/favicon.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -12,22 +12,25 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "./assets/pixel.ttf"
+      "*"
     ],
-    "fonts":[{
-      "asset":"./assets/pixel.ttf"
-    }],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/favicon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.joaojv90.DuckHunt"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4daf8473-96e1-4586-9583-fb1410860cad"
+      }
     }
   }
 }
